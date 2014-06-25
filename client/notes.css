@@ -1,0 +1,16 @@
+
+.navbar {
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.navbar p {
+	text-align: right;
+	color: white;
+	padding-top: 10px;
+}
+
+body {
+	background: url(bg.jpg);
+}
