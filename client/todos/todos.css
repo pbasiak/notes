@@ -6,3 +6,11 @@
 	text-decoration:line-through;
 	background: lightgreen !important;
 }
+
+.table-hover tbody tr:hover>td, .table-hover tbody tr:hover>th {
+	background: lightgreen !important;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+	background: none;
+}
