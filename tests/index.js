@@ -125,7 +125,7 @@ suite('MeteoNote Test', function() {
     });
 
     client.once('todos3', function(todos3) {
-         assert.equal(todos3.length, 1);
+         assert.equal(todos3.length, 0);
          done();
        });
   });
@@ -148,12 +148,12 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  test('#9 dodawanie zadania - klient', function(done, client) {
+  test('#9 dodawanie zadania - update - klient', function(done, client) {
     client.eval(function() {
     	Todos.insert({
     		todotext: "Kupić mleko",
     	})
-    	Todos.find({ todotext: "Kupić mleko" }).update({
+    	Todos.find({ todotext: "Kupić mleko" }).insert({
     		todotext: "Mleko kupione"
     	})
     var todos5 = Todos.find({ todotext: 'Mleko kupione'}).fetch();
