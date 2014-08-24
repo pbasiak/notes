@@ -148,7 +148,7 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  test('#9 dodawanie zadania - update - klient', function(done, client) {
+  test('#9 dodawanie zadania - zadanie wykonane - klient', function(done, client) {
     client.eval(function() {
     	Lists.insert({
     		name: "Lista1",
@@ -156,14 +156,34 @@ suite('MeteoNote Test', function() {
     	Todos.insert({
     		todotext: "Kupić mleko",
     		listid: "Lista1",
+    		done: true;
     	});
-    	Todos.update({ todotext: "Kupić mleko" });
     var todos5 = Todos.find({ todotext: 'Mleko kupione'}).fetch();
     emit('todos5', todos5);
     });
 
     client.once('todos5', function(todos5) {
          assert.equal(todos5.length, 1);
+         done();
+       });
+  });
+
+  test('#10 dodawanie zadania - zadanie niewykonane - klient', function(done, client) {
+    client.eval(function() {
+    	Lists.insert({
+    		name: "Lista1",
+    	});
+    	Todos.insert({
+    		todotext: "Kupić mleko",
+    		listid: "Lista1",
+    		done: false;
+    	});
+    var todos6 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
+    emit('todos6', todos6);
+    });
+
+    client.once('todos6', function(todos6) {
+         assert.equal(todos6.length, 1);
          done();
        });
   });
