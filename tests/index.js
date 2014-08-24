@@ -63,7 +63,7 @@ suite('MeteoNote Test', function() {
     client.eval(function() {
     	Lists.insert({
     		name: "testowaD",
-    	})
+    	});
         Lists.remove({
           name: "testowaD",
         });
@@ -81,11 +81,11 @@ suite('MeteoNote Test', function() {
     client.eval(function() {
     	Lists.insert({
     		name: "Lista1",
-    	})
+    	});
     	Todos.insert({
     		todotext: "Kupić mleko",
     		listid: "Lista1",
-    	})
+    	});
     var todos = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos', todos);
     });
@@ -100,11 +100,11 @@ suite('MeteoNote Test', function() {
     client.eval(function() {
     	Lists.insert({
     		name: "Lista1",
-    	})
+    	});
     	Todos.insert({
     		todotext: "",
     		listid: "Lista1",
-    	})
+    	});
     var todos2 = Todos.find({ todotext: ''}).fetch();
     emit('todos2', todos2);
     });
@@ -119,7 +119,7 @@ suite('MeteoNote Test', function() {
     client.eval(function() {
     	Todos.insert({
     		todotext: "Bardzo dluga nazaw.....................asdsadaddsaad&&24q2eadsajhsafsasadasdsaadssadads",
-    	})
+    	});
     var todos3 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos3', todos3);
     });
@@ -134,10 +134,10 @@ suite('MeteoNote Test', function() {
     client.eval(function() {
     	Todos.insert({
     		todotext: "Kupić mleko",
-    	})
+    	});
     	Todos.remove({
     		todotext: "Kupić mleko"
-    	})
+    	});
     var todos4 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos4', todos4);
     });
@@ -150,12 +150,14 @@ suite('MeteoNote Test', function() {
 
   test('#9 dodawanie zadania - update - klient', function(done, client) {
     client.eval(function() {
+    	Lists.insert({
+    		name: "Lista1",
+    	});
     	Todos.insert({
     		todotext: "Kupić mleko",
-    	})
-    	Todos.find({ todotext: "Kupić mleko" }).insert({
-    		todotext: "Mleko kupione"
-    	})
+    		listid: "Lista1",
+    	});
+    	Todos.update({ todotext: "Kupić mleko" });
     var todos5 = Todos.find({ todotext: 'Mleko kupione'}).fetch();
     emit('todos5', todos5);
     });
