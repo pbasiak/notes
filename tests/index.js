@@ -3,7 +3,18 @@ var assert = require('assert');
 
 suite('MeteoNote Test', function() {
 
-  test('dodaj listę - klient', function(done, client) {
+
+    test('#0 server initialization', function(done, server) {
+    server.eval(function() {
+      var td = Todos.find().fetch();
+      emit('td', td);
+    }).once('td', function(td) {
+      assert.equal(td.length, 0);
+      done();
+    });
+  });
+
+  test('#1 dodaj listę - klient', function(done, client) {
     client.eval(function() {
         Lists.insert({
           name: "testowa",
@@ -18,7 +29,7 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  test('dodaj listę - nazwa dwuczlonowa - klient', function(done, client) {
+  test('#2 dodaj listę - nazwa dwuczlonowa - klient', function(done, client) {
     client.eval(function() {
         Lists.insert({
           name: "testowa lista",
@@ -33,7 +44,7 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  test('dodaj listę - pusta wartosc - klient', function(done, client) {
+  test('#3 dodaj listę - pusta wartosc - klient', function(done, client) {
     client.eval(function() {
         Lists.insert({
           name: "",
@@ -48,7 +59,7 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  test('usunięcie listy - klient', function(done, client) {
+  test('#4 usunięcie listy - klient', function(done, client) {
     client.eval(function() {
     	Lists.insert({
     		name: "testowaD",
@@ -66,6 +77,85 @@ suite('MeteoNote Test', function() {
        });
   });
 
-  
+  test('#5 dodawanie zadania - klient', function(done, client) {
+    client.eval(function() {
+    	Todos.insert({
+    		todotext: "Kupić mleko",
+    	})
+    var todos = Todos.find({ name: 'Kupić mleko'}).fetch();
+    emit('todos', todos);
+    });
+
+    client.once('todos', function(todos) {
+         assert.equal(todos.length, 1);
+         done();
+       });
+  });
+
+  test('#6 dodawanie zadania - puste pole - klient', function(done, client) {
+    client.eval(function() {
+    	Todos.insert({
+    		todotext: "",
+    	})
+    var todos2 = Todos.find({ name: ''}).fetch();
+    emit('todos2', todos2);
+    });
+
+    client.once('todos2', function(todos2) {
+         assert.equal(todos2.length, 1);
+         done();
+       });
+  });
+
+  test('#7 dodawanie zadania - długa nazwa - klient', function(done, client) {
+    client.eval(function() {
+    	Todos.insert({
+    		todotext: "Bardzo dluga nazaw.....................asdsadaddsaad&&24q2eadsajhsafsasadasdsaadssadads",
+    	})
+    var todos3 = Todos.find({ name: 'Kupić mleko'}).fetch();
+    emit('todos3', todos3);
+    });
+
+    client.once('todos3', function(todos3) {
+         assert.equal(todos3.length, 1);
+         done();
+       });
+  });
+
+  test('#8 usuwanie zadania - klient', function(done, client) {
+    client.eval(function() {
+    	Todos.insert({
+    		todotext: "Kupić mleko",
+    	})
+    	Todos.remove({
+    		todotext: "Kupić mleko"
+    	})
+    var todos4 = Todos.find({ name: 'Kupić mleko'}).fetch();
+    emit('todos4', todos4);
+    });
+
+    client.once('todos4', function(todos4) {
+         assert.equal(todos4.length, 0);
+         done();
+       });
+  });
+
+  test('#9 dodawanie zadania - klient', function(done, client) {
+    client.eval(function() {
+    	Todos.insert({
+    		todotext: "Kupić mleko",
+    	})
+    	Todos.find({ todotext: "Kupić mleko" }).update({
+    		todotext: "Mleko kupione"
+    	})
+    var todos5 = Todos.find({ name: 'Mleko kupione'}).fetch();
+    emit('todos5', todos5);
+    });
+
+    client.once('todos5', function(todos5) {
+         assert.equal(todos5.length, 1);
+         done();
+       });
+  });
 
 });
