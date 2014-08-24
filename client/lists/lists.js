@@ -14,6 +14,10 @@ Template.listitem.events({
 		Session.set('listid',this._id);
 	},
 	'click .removelist':function(evt,tmpl){
-		Lists.remove({_id:this._id});
+		if (confirm('Czy na pewno chcesz usunąć listę?')) {
+			Lists.remove({_id:this._id});
+		} else{
+			return false;
+		};
 	}
 })

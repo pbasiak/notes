@@ -14,3 +14,7 @@
 .table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
 	background: none;
 }
+
+.bg-primary {
+	
+}

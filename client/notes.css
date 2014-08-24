@@ -14,3 +14,19 @@
 body {
 	background: url(bg.jpg);
 }
+
+.span3 {
+	background: url(kartka.png);
+	background-size: 100% 100%;
+	min-height: 500px;
+}
+
+.span3 h2 {
+	font-size: 22px;
+	color:#646464;
+	margin: 35px;
+}
+
+.span3 p {
+	padding: 0 25px;
+}
