@@ -163,7 +163,7 @@ suite('MeteoNote Test', function() {
     });
 
     client.once('todos5', function(todos5) {
-         assert.equal(todos5.length, 1);
+         assert.equal(todos5.length, 0);
          done();
        });
   });
@@ -176,6 +176,26 @@ suite('MeteoNote Test', function() {
     	Todos.insert({
     		todotext: "Kupić mleko",
     		listid: "Lista1",
+    		done: false,
+    	});
+    var todos6 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
+    emit('todos6', todos6);
+    });
+
+    client.once('todos6', function(todos6) {
+         assert.equal(todos6.length, 1);
+         done();
+       });
+  });
+
+  test('#11 dodawanie zadania - zadanie niewykonane bez nazwy listy - klient', function(done, client) {
+    client.eval(function() {
+    	Lists.insert({
+    		name: "Lista1",
+    	});
+    	Todos.insert({
+    		todotext: "Kupić mleko",
+    		listid: "",
     		done: false,
     	});
     var todos6 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
