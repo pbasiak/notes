@@ -79,10 +79,14 @@ suite('MeteoNote Test', function() {
 
   test('#5 dodawanie zadania - klient', function(done, client) {
     client.eval(function() {
+    	Lists.insert({
+    		name: "Lista1",
+    	})
     	Todos.insert({
     		todotext: "Kupić mleko",
+    		listid: "Lista1",
     	})
-    var todos = Todos.find({ name: 'Kupić mleko'}).fetch();
+    var todos = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos', todos);
     });
 
@@ -94,10 +98,14 @@ suite('MeteoNote Test', function() {
 
   test('#6 dodawanie zadania - puste pole - klient', function(done, client) {
     client.eval(function() {
+    	Lists.insert({
+    		name: "Lista1",
+    	})
     	Todos.insert({
     		todotext: "",
+    		listid: "Lista1",
     	})
-    var todos2 = Todos.find({ name: ''}).fetch();
+    var todos2 = Todos.find({ todotext: ''}).fetch();
     emit('todos2', todos2);
     });
 
@@ -112,7 +120,7 @@ suite('MeteoNote Test', function() {
     	Todos.insert({
     		todotext: "Bardzo dluga nazaw.....................asdsadaddsaad&&24q2eadsajhsafsasadasdsaadssadads",
     	})
-    var todos3 = Todos.find({ name: 'Kupić mleko'}).fetch();
+    var todos3 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos3', todos3);
     });
 
@@ -130,7 +138,7 @@ suite('MeteoNote Test', function() {
     	Todos.remove({
     		todotext: "Kupić mleko"
     	})
-    var todos4 = Todos.find({ name: 'Kupić mleko'}).fetch();
+    var todos4 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos4', todos4);
     });
 
@@ -148,7 +156,7 @@ suite('MeteoNote Test', function() {
     	Todos.find({ todotext: "Kupić mleko" }).update({
     		todotext: "Mleko kupione"
     	})
-    var todos5 = Todos.find({ name: 'Mleko kupione'}).fetch();
+    var todos5 = Todos.find({ todotext: 'Mleko kupione'}).fetch();
     emit('todos5', todos5);
     });
 
