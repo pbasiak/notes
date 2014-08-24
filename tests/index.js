@@ -176,7 +176,7 @@ suite('MeteoNote Test', function() {
     	Todos.insert({
     		todotext: "Kupić mleko",
     		listid: "Lista1",
-    		done: false;
+    		done: false,
     	});
     var todos6 = Todos.find({ todotext: 'Kupić mleko'}).fetch();
     emit('todos6', todos6);
