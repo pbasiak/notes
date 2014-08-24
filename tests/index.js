@@ -202,6 +202,7 @@ suite('MeteoNote Test', function() {
     emit('todos6', todos6);
     });
 
+
     client.once('todos6', function(todos6) {
          assert.equal(todos6.length, 1);
          done();
